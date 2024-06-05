@@ -362,6 +362,142 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiAttractionAttraction extends Schema.CollectionType {
+  collectionName: 'attractions';
+  info: {
+    singularName: 'attraction';
+    pluralName: 'attractions';
+    displayName: 'Attraction';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Title: Attribute.String;
+    Featured_Image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    Gallery: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
+    Category: Attribute.Relation<
+      'api::attraction.attraction',
+      'manyToMany',
+      'api::attraction-category.attraction-category'
+    >;
+    Content: Attribute.RichText;
+    Real_Address: Attribute.JSON &
+      Attribute.CustomField<'plugin::google-maps.location-picker'>;
+    Number_of_Guest: Attribute.Integer;
+    Parmalink: Attribute.String;
+    Base_Price: Attribute.Integer;
+    Extra_Services: Attribute.String;
+    Number_Of_Bedrooms: Attribute.String;
+    Number_Of_Bathrooms: Attribute.Integer;
+    Size_meter_feet: Attribute.Decimal;
+    Video_Link: Attribute.String;
+    Short_Description: Attribute.Text;
+    Slug: Attribute.UID<'api::attraction.attraction', 'Title'>;
+    Is_Featured: Attribute.Boolean & Attribute.DefaultTo<true>;
+    Enable_External_Booking: Attribute.Boolean & Attribute.DefaultTo<false>;
+    Enable_Cancellation: Attribute.Boolean & Attribute.DefaultTo<false>;
+    Status: Attribute.JSON &
+      Attribute.CustomField<
+        'plugin::multi-select.multi-select',
+        ['Publish', 'Draft', 'Pending']
+      >;
+    Type: Attribute.JSON &
+      Attribute.CustomField<
+        'plugin::multi-select.multi-select',
+        [
+          'Top 10',
+          'Caf\u00E9',
+          'Office',
+          'Recording',
+          'Studio',
+          'Yoga Studio',
+          'Warehouse',
+          'Villa'
+        ]
+      >;
+    Booking_Form: Attribute.JSON &
+      Attribute.CustomField<
+        'plugin::multi-select.multi-select',
+        ['Instant', 'Enquiry', 'Instant & Enquiry']
+      >;
+    Booking_Type: Attribute.JSON &
+      Attribute.CustomField<
+        'plugin::multi-select.multi-select',
+        ['Per Day', 'Per Hour']
+      >;
+    Spece_Amenities: Attribute.JSON &
+      Attribute.CustomField<
+        'plugin::multi-select.multi-select',
+        [
+          'Bed',
+          'Hair Dryer',
+          'Iron',
+          'Tea/Coffee',
+          'Adapters',
+          'Mobile & USB',
+          'DVD Player',
+          'Television',
+          'Table',
+          'Telephone',
+          'WiFi'
+        ]
+      >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::attraction.attraction',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::attraction.attraction',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiAttractionCategoryAttractionCategory
+  extends Schema.CollectionType {
+  collectionName: 'attraction_categories';
+  info: {
+    singularName: 'attraction-category';
+    pluralName: 'attraction-categories';
+    displayName: 'Attraction_Category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Title: Attribute.String;
+    attractions: Attribute.Relation<
+      'api::attraction-category.attraction-category',
+      'manyToMany',
+      'api::attraction.attraction'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::attraction-category.attraction-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::attraction-category.attraction-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -828,142 +964,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface ApiAttractionAttraction extends Schema.CollectionType {
-  collectionName: 'attractions';
-  info: {
-    singularName: 'attraction';
-    pluralName: 'attractions';
-    displayName: 'Attraction';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Title: Attribute.String;
-    Featured_Image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    Gallery: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
-    Category: Attribute.Relation<
-      'api::attraction.attraction',
-      'manyToMany',
-      'api::attraction-category.attraction-category'
-    >;
-    Content: Attribute.RichText;
-    Real_Address: Attribute.JSON &
-      Attribute.CustomField<'plugin::google-maps.location-picker'>;
-    Number_of_Guest: Attribute.Integer;
-    Parmalink: Attribute.String;
-    Base_Price: Attribute.Integer;
-    Extra_Services: Attribute.String;
-    Number_Of_Bedrooms: Attribute.String;
-    Number_Of_Bathrooms: Attribute.Integer;
-    Size_meter_feet: Attribute.Decimal;
-    Video_Link: Attribute.String;
-    Short_Description: Attribute.Text;
-    Slug: Attribute.UID<'api::attraction.attraction', 'Title'>;
-    Is_Featured: Attribute.Boolean & Attribute.DefaultTo<true>;
-    Enable_External_Booking: Attribute.Boolean & Attribute.DefaultTo<false>;
-    Enable_Cancellation: Attribute.Boolean & Attribute.DefaultTo<false>;
-    Status: Attribute.JSON &
-      Attribute.CustomField<
-        'plugin::multi-select.multi-select',
-        ['Publish', 'Draft', 'Pending']
-      >;
-    Type: Attribute.JSON &
-      Attribute.CustomField<
-        'plugin::multi-select.multi-select',
-        [
-          'Top 10',
-          'Caf\u00E9',
-          'Office',
-          'Recording',
-          'Studio',
-          'Yoga Studio',
-          'Warehouse',
-          'Villa'
-        ]
-      >;
-    Booking_Form: Attribute.JSON &
-      Attribute.CustomField<
-        'plugin::multi-select.multi-select',
-        ['Instant', 'Enquiry', 'Instant & Enquiry']
-      >;
-    Booking_Type: Attribute.JSON &
-      Attribute.CustomField<
-        'plugin::multi-select.multi-select',
-        ['Per Day', 'Per Hour']
-      >;
-    Spece_Amenities: Attribute.JSON &
-      Attribute.CustomField<
-        'plugin::multi-select.multi-select',
-        [
-          'Bed',
-          'Hair Dryer',
-          'Iron',
-          'Tea/Coffee',
-          'Adapters',
-          'Mobile & USB',
-          'DVD Player',
-          'Television',
-          'Table',
-          'Telephone',
-          'WiFi'
-        ]
-      >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::attraction.attraction',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::attraction.attraction',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiAttractionCategoryAttractionCategory
-  extends Schema.CollectionType {
-  collectionName: 'attraction_categories';
-  info: {
-    singularName: 'attraction-category';
-    pluralName: 'attraction-categories';
-    displayName: 'Attraction_Category';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Title: Attribute.String;
-    attractions: Attribute.Relation<
-      'api::attraction-category.attraction-category',
-      'manyToMany',
-      'api::attraction.attraction'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::attraction-category.attraction-category',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::attraction-category.attraction-category',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -974,6 +974,8 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::attraction.attraction': ApiAttractionAttraction;
+      'api::attraction-category.attraction-category': ApiAttractionCategoryAttractionCategory;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -983,8 +985,6 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'api::attraction.attraction': ApiAttractionAttraction;
-      'api::attraction-category.attraction-category': ApiAttractionCategoryAttractionCategory;
     }
   }
 }

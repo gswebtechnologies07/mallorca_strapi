@@ -12,7 +12,6 @@ module.exports = createCoreController('api::attraction.attraction', ({ strapi })
         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(location)}&key=AIzaSyBeSYHJyh5OmxQ_x4O7t_nQjDA7M9h5HmI`
       );
 
-      // console.log('Geocoding API response:', geoResponse.data);
 
       if (geoResponse.data && geoResponse.data.results.length > 0) {
         const { lat, lng } = geoResponse.data.results[0].geometry.location;
@@ -36,8 +35,6 @@ module.exports = createCoreController('api::attraction.attraction', ({ strapi })
         if (!isNaN(parseInt(numberOfGuests))) {
           query = query.andWhere('Number_of_Guest', parseInt(numberOfGuests));
         }
-
-        // console.log('SQL query:', query.toString()); 
 
         const attractions = await query;
 

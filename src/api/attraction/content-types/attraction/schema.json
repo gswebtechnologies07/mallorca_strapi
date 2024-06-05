@@ -92,40 +92,6 @@
     "Enable_Cancellation": {
       "type": "boolean",
       "default": false
-    },
-    "Booking_Form": {
-      "type": "customField",
-      "options": [
-        "Instant",
-        "Enquiry",
-        "Instant & Enquiry"
-      ],
-      "customField": "plugin::multi-select.multi-select"
-    },
-    "Booking_Type": {
-      "type": "customField",
-      "options": [
-        "Per Day",
-        "Per Hour"
-      ],
-      "customField": "plugin::multi-select.multi-select"
-    },
-    "Spece_Amenities": {
-      "type": "customField",
-      "options": [
-        "Bed",
-        "Hair Dryer",
-        "Iron",
-        "Tea/Coffee",
-        "Adapters",
-        "Mobile & USB",
-        "DVD Player",
-        "Television",
-        "Table",
-        "Telephone",
-        "WiFi"
-      ],
-      "customField": "plugin::multi-select.multi-select"
     }
   }
 }

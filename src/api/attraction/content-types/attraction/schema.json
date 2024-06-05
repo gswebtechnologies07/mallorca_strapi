@@ -93,20 +93,6 @@
       "type": "boolean",
       "default": false
     },
-    "Type": {
-      "type": "customField",
-      "options": [
-        "Top 10",
-        "Café",
-        "Office",
-        "Recording",
-        "Studio",
-        "Yoga Studio",
-        "Warehouse",
-        "Villa"
-      ],
-      "customField": "plugin::multi-select.multi-select"
-    },
     "Booking_Form": {
       "type": "customField",
       "options": [

@@ -398,11 +398,6 @@ export interface ApiAttractionAttraction extends Schema.CollectionType {
     Is_Featured: Attribute.Boolean & Attribute.DefaultTo<true>;
     Enable_External_Booking: Attribute.Boolean & Attribute.DefaultTo<false>;
     Enable_Cancellation: Attribute.Boolean & Attribute.DefaultTo<false>;
-    Status: Attribute.JSON &
-      Attribute.CustomField<
-        'plugin::multi-select.multi-select',
-        ['Publish', 'Draft', 'Pending']
-      >;
     Type: Attribute.JSON &
       Attribute.CustomField<
         'plugin::multi-select.multi-select',

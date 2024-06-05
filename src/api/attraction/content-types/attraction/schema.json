@@ -93,15 +93,6 @@
       "type": "boolean",
       "default": false
     },
-    "Status": {
-      "type": "customField",
-      "options": [
-        "Publish",
-        "Draft",
-        "Pending"
-      ],
-      "customField": "plugin::multi-select.multi-select"
-    },
     "Type": {
       "type": "customField",
       "options": [

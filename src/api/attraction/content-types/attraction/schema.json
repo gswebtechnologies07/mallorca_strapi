@@ -1,0 +1,154 @@
+{
+  "kind": "collectionType",
+  "collectionName": "attractions",
+  "info": {
+    "singularName": "attraction",
+    "pluralName": "attractions",
+    "displayName": "Attraction",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Featured_Image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Category": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::attraction-category.attraction-category",
+      "inversedBy": "attractions"
+    },
+    "Content": {
+      "type": "richtext"
+    },
+    "Real_Address": {
+      "type": "customField",
+      "customField": "plugin::google-maps.location-picker"
+    },
+    "Number_of_Guest": {
+      "type": "integer"
+    },
+    "Parmalink": {
+      "type": "string"
+    },
+    "Base_Price": {
+      "type": "integer"
+    },
+    "Extra_Services": {
+      "type": "string"
+    },
+    "Number_Of_Bedrooms": {
+      "type": "string"
+    },
+    "Number_Of_Bathrooms": {
+      "type": "integer"
+    },
+    "Size_meter_feet": {
+      "type": "decimal"
+    },
+    "Video_Link": {
+      "type": "string"
+    },
+    "Short_Description": {
+      "type": "text"
+    },
+    "Slug": {
+      "type": "uid",
+      "targetField": "Title"
+    },
+    "Is_Featured": {
+      "type": "boolean",
+      "default": true
+    },
+    "Enable_External_Booking": {
+      "type": "boolean",
+      "default": false
+    },
+    "Enable_Cancellation": {
+      "type": "boolean",
+      "default": false
+    },
+    "Status": {
+      "type": "customField",
+      "options": [
+        "Publish",
+        "Draft",
+        "Pending"
+      ],
+      "customField": "plugin::multi-select.multi-select"
+    },
+    "Type": {
+      "type": "customField",
+      "options": [
+        "Top 10",
+        "Café",
+        "Office",
+        "Recording",
+        "Studio",
+        "Yoga Studio",
+        "Warehouse",
+        "Villa"
+      ],
+      "customField": "plugin::multi-select.multi-select"
+    },
+    "Booking_Form": {
+      "type": "customField",
+      "options": [
+        "Instant",
+        "Enquiry",
+        "Instant & Enquiry"
+      ],
+      "customField": "plugin::multi-select.multi-select"
+    },
+    "Booking_Type": {
+      "type": "customField",
+      "options": [
+        "Per Day",
+        "Per Hour"
+      ],
+      "customField": "plugin::multi-select.multi-select"
+    },
+    "Spece_Amenities": {
+      "type": "customField",
+      "options": [
+        "Bed",
+        "Hair Dryer",
+        "Iron",
+        "Tea/Coffee",
+        "Adapters",
+        "Mobile & USB",
+        "DVD Player",
+        "Television",
+        "Table",
+        "Telephone",
+        "WiFi"
+      ],
+      "customField": "plugin::multi-select.multi-select"
+    }
+  }
+}

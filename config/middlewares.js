@@ -8,13 +8,14 @@ module.exports = [
       useDefaults: true,
       directives: {
         'connect-src': ["'self'", 'https:'],
-        'script-src': ["'self'", 'unsafe-inline', 'https://maps.googleapis.com'],
+        'script-src': ["'self'", 'unsafe-inline', 'https://maps.googleapis.com','market-assets.strapi.io',],
         'media-src': [
           "'self'",
           'blob:',
           'data:',
           'https://maps.gstatic.com',
           'https://maps.googleapis.com',
+          'res.cloudinary.com', // Add Cloudinary
         ],
         'img-src': [
           "'self'",
@@ -42,6 +43,7 @@ module.exports = [
           'khms3.googleapis.com',
           'streetviewpixels-pa.googleapis.com',
           'market-assets.strapi.io',
+          'res.cloudinary.com', // Add Cloudinary
         ],
       },
     },

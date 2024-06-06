@@ -8,7 +8,7 @@ module.exports = [
       useDefaults: true,
       directives: {
         'connect-src': ["'self'", 'https:'],
-        'script-src': ["'self'", 'unsafe-inline', 'https://maps.googleapis.com','market-assets.strapi.io','*.tile.openstreetmap.org',],
+        'script-src': ["'self'", 'unsafe-inline', 'https://maps.googleapis.com','market-assets.strapi.io',],
         'media-src': [
           "'self'",
           'blob:',

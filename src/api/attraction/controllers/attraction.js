@@ -12,7 +12,6 @@ module.exports = createCoreController('api::attraction.attraction', ({ strapi })
         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(location)}&key=AIzaSyBeSYHJyh5OmxQ_x4O7t_nQjDA7M9h5HmI`
       );
 
-
       if (geoResponse.data && geoResponse.data.results.length > 0) {
         const { lat, lng } = geoResponse.data.results[0].geometry.location;
         const radiusInMeters = radius * 1000;
@@ -32,6 +31,7 @@ module.exports = createCoreController('api::attraction.attraction', ({ strapi })
             )`,
             [lng, lat, radiusInMeters]
           );
+
         if (!isNaN(parseInt(numberOfGuests))) {
           query = query.andWhere('Number_of_Guest', parseInt(numberOfGuests));
         }
@@ -39,7 +39,20 @@ module.exports = createCoreController('api::attraction.attraction', ({ strapi })
         const attractions = await query;
 
         if (attractions.length > 0) {
-          ctx.body = attractions;
+          // Populate image URLs
+          const populatedAttractions = await Promise.all(attractions.map(async (attraction) => {
+            const populatedAttraction = await strapi.entityService.findOne('api::attraction.attraction', attraction.id, {
+              populate: ['Featured_Image', 'Gallery']
+            });
+
+            return {
+              ...attraction,
+              Featured_Image: populatedAttraction.Featured_Image ? populatedAttraction.Featured_Image.url : null,
+              Gallery: populatedAttraction.Gallery ? populatedAttraction.Gallery.map(image => image.url) : [],
+            };
+          }));
+
+          ctx.body = populatedAttractions;
         } else {
           ctx.body = { message: 'No attractions found within the specified radius' };
         }

@@ -8,6 +8,7 @@ module.exports = createCoreController('api::attraction.attraction', ({ strapi })
     const { location, radius, numberOfGuests } = ctx.request.body;
 
     try {
+      // Get latitude and longitude from the location
       const geoResponse = await axios.get(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(location)}&key=AIzaSyBeSYHJyh5OmxQ_x4O7t_nQjDA7M9h5HmI`
       );
@@ -18,6 +19,7 @@ module.exports = createCoreController('api::attraction.attraction', ({ strapi })
 
         const knex = strapi.db.connection;
 
+        // Query to find attractions within the specified radius and number of guests
         let query = knex('attractions')
           .select('*')
           .whereRaw(
@@ -32,8 +34,9 @@ module.exports = createCoreController('api::attraction.attraction', ({ strapi })
             [lng, lat, radiusInMeters]
           );
 
+        // Add condition for number of guests
         if (!isNaN(parseInt(numberOfGuests))) {
-          query = query.andWhere('Number_of_Guest', parseInt(numberOfGuests));
+          query = query.andWhere('Number_of_Guest', '>=', parseInt(numberOfGuests));
         }
 
         const attractions = await query;
@@ -54,7 +57,7 @@ module.exports = createCoreController('api::attraction.attraction', ({ strapi })
 
           ctx.body = populatedAttractions;
         } else {
-          ctx.body = { message: 'No attractions found within the specified radius' };
+          ctx.body = { message: 'No attractions found within the specified radius and number of guests' };
         }
       } else {
         console.log('Invalid location:', location);
